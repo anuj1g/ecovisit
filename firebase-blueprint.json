@@ -1,0 +1,68 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile and reward points",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "points": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role", "points"]
+    },
+    "Report": {
+      "title": "Report",
+      "description": "Garbage report submitted by a user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "reporterId": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "location": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lng": { "type": "number" },
+            "address": { "type": "string" }
+          }
+        },
+        "status": { "type": "string", "enum": ["pending", "in-progress", "resolved"] },
+        "pointsAwarded": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["reporterId", "imageUrl", "location", "status"]
+    },
+    "Reward": {
+      "title": "Reward",
+      "description": "Reward points transaction history",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "reportId": { "type": "string" },
+        "points": { "type": "number" },
+        "type": { "type": "string", "enum": ["earned", "redeemed"] },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "points", "type", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/reports/{reportId}": {
+      "schema": "Report",
+      "description": "Garbage reports"
+    },
+    "/rewards/{rewardId}": {
+      "schema": "Reward",
+      "description": "Reward history"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "EcoVisit – Clean City Initiative",
+  "description": "A location-based waste reporting system with GPS tracking, image uploads, and a reward system for cleaner cities.",
+  "requestFramePermissions": ["geolocation", "camera"],
+  "majorCapabilities": []
+}
